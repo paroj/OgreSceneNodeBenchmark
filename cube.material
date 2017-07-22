@@ -1,0 +1,10 @@
+material Material
+{
+	technique
+	{
+		pass
+		{
+			diffuse		0.708 0.283 0.04092
+		}
+	}
+}
