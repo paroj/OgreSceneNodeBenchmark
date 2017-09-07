@@ -1,5 +1,7 @@
 #include <Ogre.h>
 #include "OgreApplicationContext.h"
+#include <OgreProfiler.h>
+#include <OgreOverlaySystem.h>
 
 #if OGRE_VERSION_MAJOR == 2
 #include <OgreFrameStats.h>
@@ -98,6 +100,13 @@ void MyTestApp::setup(void)
     // register our scene with the RTSS
     Ogre::RTShader::ShaderGenerator* shadergen = Ogre::RTShader::ShaderGenerator::getSingletonPtr();
     shadergen->addSceneManager(scnMgr);
+
+    Ogre::Profiler* prof = Ogre::Profiler::getSingletonPtr();
+    if(prof)
+        prof->setEnabled(true);
+
+    scnMgr->addRenderQueueListener(getOverlaySystem());
+
 
     // without light we would just get a black screen
     scnMgr->setAmbientLight( ColourValue( 0.1f, 0.1f, 0.1f ) );
