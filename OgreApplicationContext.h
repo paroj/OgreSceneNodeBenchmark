@@ -62,13 +62,21 @@ namespace Ogre {
 */
 namespace Bites
 {
+#if OGRE_VERSION_MAJOR == 2
+    using Ogre::WindowEventListener;
+    using Ogre::WindowEventUtilities;
+#else
+    using OgreBites::WindowEventListener;
+    using OgreBites::WindowEventUtilities;
+#endif
+
     /** 
     Base class responsible for setting up a common context for applications.
     Subclass to implement specific event callbacks.
     */
     class ApplicationContext :
             public Ogre::FrameListener,
-            public Ogre::WindowEventListener
+            public WindowEventListener
     {
     public:
         explicit ApplicationContext(const Ogre::String& appName = OGRE_VERSION_NAME, bool grabInput = true);

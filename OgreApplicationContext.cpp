@@ -201,7 +201,7 @@ void ApplicationContext::setup()
     // adds context as listener to process context-level (above the sample level) events
     mRoot->addFrameListener(this);
 #if OGRE_PLATFORM != OGRE_PLATFORM_ANDROID
-    Ogre::WindowEventUtilities::addWindowEventListener(mWindow, this);
+    WindowEventUtilities::addWindowEventListener(mWindow, this);
 #endif
 }
 
@@ -229,13 +229,9 @@ void ApplicationContext::createRoot()
 
 bool ApplicationContext::oneTimeConfig()
 {
-#if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID || OGRE_PLATFORM == OGRE_PLATFORM_EMSCRIPTEN
-    mRoot->setRenderSystem(mRoot->getAvailableRenderers().at(0));
-#else
     if (!mRoot->restoreConfig()) {
-        return mRoot->showConfigDialog();
+        mRoot->setRenderSystem(mRoot->getAvailableRenderers().at(0));
     }
-#endif
     return true;
 }
 
@@ -283,13 +279,9 @@ Ogre::RenderWindow *ApplicationContext::createWindow()
 #else
     Ogre::ConfigOptionMap ropts = mRoot->getRenderSystem()->getConfigOptions();
 
-    Ogre::uint32 w, h;
+    Ogre::uint32 w = 640, h = 480;
 
-    std::istringstream mode(ropts["Video Mode"].currentValue);
-    Ogre::String token;
-    mode >> w; // width
-    mode >> token; // 'x' as seperator between width and height
-    mode >> h; // height
+
 
     miscParams["FSAA"] = ropts["FSAA"].currentValue;
     miscParams["vsync"] = ropts["VSync"].currentValue;
@@ -504,7 +496,11 @@ void ApplicationContext::locateResources()
 
     OgreAssert(!genLocs.empty(), ("Resource Group '"+sec+"' must contain at least one entry").c_str());
 
-    arch = genLocs.front()->archive->getName();
+#if OGRE_VERSION_MAJOR == 2
+    arch = (*genLocs.begin())->archive->getName();
+#else
+    arch = (*genLocs.begin()).archive->getName();
+#endif
 
 #if OGRE_PLATFORM == OGRE_PLATFORM_APPLE
     arch = Ogre::macBundlePath() + "/Contents/Resources/Media";
@@ -514,7 +510,12 @@ void ApplicationContext::locateResources()
     arch = Ogre::StringUtil::replaceAll(arch, "Media/../../Tests/Media", "");
     arch = Ogre::StringUtil::replaceAll(arch, "media/../../Tests/Media", "");
 # endif
-    type = genLocs.front()->archive->getType();
+
+#if OGRE_VERSION_MAJOR == 2
+    type = (*genLocs.begin())->archive->getType();
+#else
+    type = (*genLocs.begin()).archive->getType();
+#endif
 
 #ifdef OGRE_BUILD_PLUGIN_CG
     bool use_HLSL_Cg_shared = true;
@@ -643,7 +644,7 @@ void ApplicationContext::shutdown()
 
     // remove window event listener before destroying it
     if(mWindow) {
-        Ogre::WindowEventUtilities::removeWindowEventListener(mWindow, this);
+        WindowEventUtilities::removeWindowEventListener(mWindow, this);
         mRoot->destroyRenderTarget(mWindow);
         mWindow = NULL;
     }
