@@ -172,6 +172,7 @@ void MyTestApp::setup(void)
 #endif
 #else
             Entity *ent = scnMgr->createEntity( "Cube_d.mesh" );
+            ent->setMaterialName("Examples/BeachStones");
 #endif
             sceneNode->attachObject( ent );
             sceneNode->setPosition( Vector3( 0.5f * (i - numH/2), 0.0f, 0.5f * (j -numW/2)) );

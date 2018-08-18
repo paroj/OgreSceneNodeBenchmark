@@ -18,8 +18,12 @@ Ogre::Technique *SGTechniqueResolverListener::handleSchemeNotFound(unsigned shor
 
     // Create shader generated technique for this material.
     bool techniqueCreated = mShaderGenerator->createShaderBasedTechnique(
+#if OGRE_VERSION_MAJOR == 2
                 originalMaterial->getName(),
                 originalMaterial->getGroup(),
+#else
+                *originalMaterial,
+#endif
                 Ogre::MaterialManager::DEFAULT_SCHEME_NAME,
                 schemeName);
 
