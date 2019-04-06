@@ -35,6 +35,10 @@
 #include "OgreFrameListener.h"
 #include "OgreStaticPluginLoader.h"
 
+#if OGRE_VERSION_MAJOR == 1 && OGRE_VERSION_MINOR >= 12
+#include "OgreComponents.h"
+#endif
+
 #ifndef OGRE_BITES_HAVE_SDL
 #define OGRE_BITES_HAVE_SDL 1
 #endif

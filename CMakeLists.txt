@@ -4,9 +4,10 @@ project(BenchmarkOgre)
 ## [discover_ogre]
 # specify which version you need
 find_package(OGRE 1.10 REQUIRED)
+find_package(SDL2 REQUIRED)
 
 # the search paths
-include_directories(${OGRE_INCLUDE_DIRS} include/)
+include_directories(${OGRE_INCLUDE_DIRS} ${SDL2_INCLUDE_DIRS}  include/)
 link_directories(${OGRE_LIBRARY_DIRS})
 
 add_definitions(-std=c++11)
@@ -18,4 +19,4 @@ file(APPEND ${CMAKE_BINARY_DIR}/resources.cfg  "FileSystem=.\n")
 ## [discover_ogre]
 
 add_executable(BenchmarkOgre main.cpp OgreApplicationContext.cpp OgreSGTechniqueResolverListener.cpp)
-target_link_libraries(BenchmarkOgre ${OGRE_LIBRARIES})
+target_link_libraries(BenchmarkOgre ${OGRE_LIBRARIES} ${SDL2_LIBRARIES})

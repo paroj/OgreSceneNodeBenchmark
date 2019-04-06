@@ -558,7 +558,7 @@ void ApplicationContext::locateResources()
         Ogre::ResourceGroupManager::getSingleton().addResourceLocation(arch + "/materials/programs/HLSL_Cg", type, sec);
     }
 
-#ifdef OGRE_BUILD_COMPONENT_RTSHADERSYSTEM
+#if defined(OGRE_BUILD_COMPONENT_RTSHADERSYSTEM) && (OGRE_VERSION < 0x010C00)
     mRTShaderLibPath = arch + "/RTShaderLib";
     Ogre::ResourceGroupManager::getSingleton().addResourceLocation(mRTShaderLibPath + "/materials", type, sec);
 
