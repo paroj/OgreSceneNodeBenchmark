@@ -124,12 +124,6 @@ bool ApplicationContext::initialiseRTShaderSystem()
     {
         mShaderGenerator = Ogre::RTShader::ShaderGenerator::getSingletonPtr();
 
-#if OGRE_PLATFORM != OGRE_PLATFORM_NACL && OGRE_PLATFORM != OGRE_PLATFORM_WINRT
-        // Core shader libs not found -> shader generating will fail.
-        if (mRTShaderLibPath.empty())
-            return false;
-#endif
-
         // Create and register the material manager listener if it doesn't exist yet.
         if (!mMaterialMgrListener) {
             mMaterialMgrListener = new SGTechniqueResolverListener(mShaderGenerator);
