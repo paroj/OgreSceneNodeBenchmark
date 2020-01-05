@@ -52,13 +52,14 @@ public:
 //! [constructor]
 MyTestApp::MyTestApp() : Bites::ApplicationContext("SceneNodeBenchmark")
 {
-    addInputListener(this);
 }
 //! [constructor]
 
 //! [key_handler]
 bool MyTestApp::keyPressed(const Bites::KeyboardEvent& evt)
 {
+    using namespace Bites;
+
     if (evt.keysym.sym == SDLK_ESCAPE)
     {
         printf("\n\n");
@@ -83,6 +84,8 @@ void MyTestApp::setup(void)
 
     // do not forget to call the base first
     Bites::ApplicationContext::setup();
+
+    addInputListener(this);
 
     // get a pointer to the already created root
     Ogre::Root* root = getRoot();
@@ -112,14 +115,11 @@ void MyTestApp::setup(void)
     scnMgr->setAmbientLight( ColourValue( 0.1f, 0.1f, 0.1f ) );
 
     Ogre::Light* light = scnMgr->createLight();
-
-#if OGRE_VERSION_MAJOR == 2
     auto lightNode = scnMgr->getRootSceneNode()->createChildSceneNode();
     lightNode->attachObject(light);
-#endif
 
     light->setType( Light::LT_DIRECTIONAL );
-    light->setDirection( Vector3( 1.0f, -1.0f, -1.0f ).normalisedCopy() );
+    lightNode->setDirection( Vector3( 1.0f, -1.0f, -1.0f ).normalisedCopy() );
     light->setDiffuseColour( ColourValue::White );
     light->setSpecularColour( ColourValue::White );
     light->setVisibilityFlags( -1 );
