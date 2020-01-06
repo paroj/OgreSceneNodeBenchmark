@@ -155,6 +155,13 @@ void MyTestApp::setup(void)
 
     nodes.reserve(numW*numH);
 
+#ifdef HW_BASIC
+    auto instanceManager = scnMgr->createInstanceManager(
+        "InstanceMgr", "Cube_d.mesh",
+        RGN_DEFAULT, InstanceManager::HWInstancingBasic,
+        numW * numH);
+#endif
+
     //AnimationState *animState;
     for( int i=0; i<numH; ++i )
     {

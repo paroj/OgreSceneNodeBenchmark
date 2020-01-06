@@ -15,7 +15,7 @@ add_definitions(-std=c++11)
 # copy essential config files next to our binary where OGRE autodiscovers them
 file(COPY ${OGRE_CONFIG_DIR}/plugins.cfg ${OGRE_CONFIG_DIR}/resources.cfg 
      DESTINATION ${CMAKE_BINARY_DIR})
-file(APPEND ${CMAKE_BINARY_DIR}/resources.cfg  "FileSystem=.\n")
+file(APPEND ${CMAKE_BINARY_DIR}/resources.cfg  "[General]\nFileSystem=.\n")
 ## [discover_ogre]
 
 add_executable(BenchmarkOgre main.cpp OgreApplicationContext.cpp OgreSGTechniqueResolverListener.cpp)

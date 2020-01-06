@@ -1,3 +1,5 @@
+import Examples/Instancing/HWBasic from HWInstancing.material
+
 material Material
 {
 	technique
@@ -7,4 +9,8 @@ material Material
 			diffuse		0.708 0.283 0.04092
 		}
 	}
+}
+
+material Examples/Instancing/HWBasic/Cube : Examples/Instancing/HWBasic
+{
 }
