@@ -14,3 +14,19 @@ material Material
 material Examples/Instancing/HWBasic/Cube : Examples/Instancing/HWBasic
 {
 }
+
+material Examples/BeachStones
+{
+	technique
+	{
+		pass
+		{
+			ambient 0.1 0.1 0.1
+
+			texture_unit
+			{
+				texture BeachStones.jpg
+			}
+		}
+	}
+}

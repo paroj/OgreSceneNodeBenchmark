@@ -35,7 +35,7 @@
 #include "OgreFrameListener.h"
 #include "OgreStaticPluginLoader.h"
 
-#if OGRE_VERSION_MAJOR == 1 && OGRE_VERSION_MINOR >= 12
+#if OGRE_VERSION_MAJOR != 2
 #include "OgreComponents.h"
 #endif
 
